@@ -1,0 +1,53 @@
+version: '2'
+services:
+  neo3:
+    image: ekino/neo4j-cluster:latest
+    hostname: neo3
+    environment:
+      SERVER_ID: '3'
+      CLUSTER_NODES: neo1,neo2,neo3,neo4
+    stdin_open: true
+    tty: true
+    labels:
+      io.rancher.container.pull_image: always
+  neo2:
+    image: ekino/neo4j-cluster:latest
+    hostname: neo2
+    environment:
+      SERVER_ID: '2'
+      CLUSTER_NODES: neo1,neo2,neo3,neo4
+    stdin_open: true
+    tty: true
+    labels:
+      io.rancher.container.pull_image: always
+  neo1:
+    image: ekino/neo4j-cluster:latest
+    hostname: neo1
+    environment:
+      SERVER_ID: '1'
+      CLUSTER_NODES: neo1,neo2,neo3,neo4
+    stdin_open: true
+    tty: true
+    labels:
+      io.rancher.container.pull_image: always
+  neo4j-lb:
+    image: rancher/lb-service-haproxy:v0.7.5
+    ports:
+    - 4001:4001/tcp
+    - 4002:4002/tcp
+    - 4003:4003/tcp
+    - 4004:4004/tcp
+    - 4005:4005/tcp
+    labels:
+      io.rancher.container.agent.role: environmentAdmin
+      io.rancher.container.create_agent: 'true'
+  neo4:
+    image: ekino/neo4j-cluster:latest
+    hostname: neo4
+    environment:
+      SERVER_ID: '4'
+      CLUSTER_NODES: neo1,neo2,neo3,neo4
+    stdin_open: true
+    tty: true
+    labels:
+      io.rancher.container.pull_image: always
