@@ -2,7 +2,7 @@ version: '2'
 services:
   neo3:
     privileged: true
-    image: ekino/neo4j-cluster:latest
+    image: nucleoteam/neo4j-cluster:latest
     hostname: neo3
     environment:
       CLUSTER_NODES: neo1,neo2,neo3,neo4
@@ -17,7 +17,7 @@ services:
       io.rancher.scheduler.affinity:container_soft: {{ .Stack.Name }}-neo3-1
   neo2:
     privileged: true
-    image: ekino/neo4j-cluster:latest
+    image: nucleoteam/neo4j-cluster:latest
     hostname: neo2
     environment:
       CLUSTER_NODES: neo1,neo2,neo3,neo4
@@ -32,7 +32,7 @@ services:
       io.rancher.scheduler.affinity:container_soft: {{ .Stack.Name }}-neo2-1
   neo1:
     privileged: true
-    image: ekino/neo4j-cluster:latest
+    image: nucleoteam/neo4j-cluster:latest
     hostname: neo1
     environment:
       CLUSTER_NODES: neo1,neo2,neo3,neo4
@@ -57,7 +57,7 @@ services:
       io.rancher.container.create_agent: 'true'
   neo4:
     privileged: true
-    image: ekino/neo4j-cluster:latest
+    image: nucleoteam/neo4j-cluster:latest
     hostname: neo4
     environment:
       CLUSTER_NODES: neo1,neo2,neo3,neo4
