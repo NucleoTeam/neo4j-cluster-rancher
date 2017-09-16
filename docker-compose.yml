@@ -13,6 +13,7 @@ services:
     tty: true
     labels:
       io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=neo4j/neo1
       io.rancher.scheduler.affinity:container_soft: neo4j-neo3-1
   neo2:
     privileged: true
@@ -27,6 +28,7 @@ services:
     tty: true
     labels:
       io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity:container_label: io.rancher.stack_service.name=neo4j/neo1
       io.rancher.scheduler.affinity:container_soft: neo4j-neo2-1
   neo1:
     privileged: true
@@ -66,4 +68,5 @@ services:
     tty: true
     labels:
       io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=neo4j/neo1
       io.rancher.scheduler.affinity:container_soft: neo4j-neo4-1
