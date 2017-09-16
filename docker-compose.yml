@@ -9,12 +9,12 @@ services:
       SERVER_ID: '3'
     stdin_open: true
     volumes:
-    - /var/lib/neo4j-3/data/:/var/lib/neo4j/data/
+    - /var/lib/$RANCHER_STACK/neo4j-3/data/:/var/lib/neo4j/data/
     tty: true
     labels:
       io.rancher.container.pull_image: always
-      io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=neo4j/neo1
-      io.rancher.scheduler.affinity:container_soft: neo4j-neo3-1
+      io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$RANCHER_STACK/neo1
+      io.rancher.scheduler.affinity:container_soft: $RANCHER_STACK-neo3-1
   neo2:
     privileged: true
     image: ekino/neo4j-cluster:latest
@@ -24,12 +24,12 @@ services:
       SERVER_ID: '2'
     stdin_open: true
     volumes:
-    - /var/lib/neo4j-2/data/:/var/lib/neo4j/data/
+    - /var/lib/$RANCHER_STACK/neo4j-2/data/:/var/lib/neo4j/data/
     tty: true
     labels:
       io.rancher.container.pull_image: always
-      io.rancher.scheduler.affinity:container_label: io.rancher.stack_service.name=neo4j/neo1
-      io.rancher.scheduler.affinity:container_soft: neo4j-neo2-1
+      io.rancher.scheduler.affinity:container_label: io.rancher.stack_service.name=$RANCHER_STACK/neo1
+      io.rancher.scheduler.affinity:container_soft: $RANCHER_STACK-neo2-1
   neo1:
     privileged: true
     image: ekino/neo4j-cluster:latest
@@ -39,11 +39,11 @@ services:
       SERVER_ID: '1'
     stdin_open: true
     volumes:
-    - /var/lib/neo4j-1/data/:/var/lib/neo4j/data/
+    - /var/lib/$RANCHER_STACK/neo4j-1/data/:/var/lib/neo4j/data/
     tty: true
     labels:
       io.rancher.container.pull_image: always
-      io.rancher.scheduler.affinity:container_soft: neo4j-neo1-1
+      io.rancher.scheduler.affinity:container_soft: $RANCHER_STACK-neo1-1
   neo4j-lb:
     image: rancher/lb-service-haproxy:v0.7.5
     ports:
@@ -64,9 +64,9 @@ services:
       SERVER_ID: '4'
     stdin_open: true
     volumes:
-    - /var/lib/neo4j-4/data/:/var/lib/neo4j/data/
+    - /var/lib/$RANCHER_STACK/neo4j-4/data/:/var/lib/neo4j/data/
     tty: true
     labels:
       io.rancher.container.pull_image: always
-      io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=neo4j/neo1
-      io.rancher.scheduler.affinity:container_soft: neo4j-neo4-1
+      io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$RANCHER_STACK/neo1
+      io.rancher.scheduler.affinity:container_soft: $RANCHER_STACK-neo4-1
