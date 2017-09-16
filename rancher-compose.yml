@@ -15,8 +15,7 @@ services:
     lb_config:
       certs: []
       port_rules:
-      - path: ''
-        priority: 1
+      - priority: 1
         protocol: tcp
         service: neo1
         source_port: 4001
@@ -63,6 +62,7 @@ services:
       unhealthy_threshold: 3
       initializing_timeout: 60000
       interval: 2000
+      strategy: recreate
       reinitializing_timeout: 60000
   neo4:
     scale: 1
