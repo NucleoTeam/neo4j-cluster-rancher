@@ -1,7 +1,5 @@
 version: '2'
 services:
-  neo4j-cluster:
-    start_on_create: true
   neo3:
     scale: 1
     start_on_create: true
@@ -20,12 +18,47 @@ services:
       - path: ''
         priority: 1
         protocol: tcp
-        service: neo4j-cluster
+        service: neo1
         source_port: 4001
         target_port: 7474
+      - priority: 2
+        protocol: tcp
+        service: neo2
+        source_port: 4002
+        target_port: 7474
+      - priority: 3
+        protocol: tcp
+        service: neo3
+        source_port: 4003
+        target_port: 7474
+      - priority: 4
+        protocol: tcp
+        service: neo4
+        source_port: 4004
+        target_port: 7474
+      - priority: 5
+        protocol: tcp
+        service: neo1
+        source_port: 4005
+        target_port: 7474
+      - priority: 6
+        protocol: tcp
+        service: neo2
+        source_port: 4005
+        target_port: 7474
+      - priority: 7
+        protocol: tcp
+        service: neo3
+        source_port: 4005
+        target_port: 7474
+      - priority: 8
+        protocol: tcp
+        service: neo4
+        source_port: 4005
+        target_port: 7474
     health_check:
-      response_timeout: 2000
       healthy_threshold: 2
+      response_timeout: 2000
       port: 42
       unhealthy_threshold: 3
       initializing_timeout: 60000
