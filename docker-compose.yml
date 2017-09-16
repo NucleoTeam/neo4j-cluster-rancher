@@ -1,35 +1,47 @@
 version: '2'
 services:
   neo3:
+    privileged: true
     image: ekino/neo4j-cluster:latest
     hostname: neo3
     environment:
-      SERVER_ID: '3'
       CLUSTER_NODES: neo1,neo2,neo3,neo4
+      SERVER_ID: '3'
     stdin_open: true
+    volumes:
+    - /var/lib/neo4j-3/data/:/var/lib/neo4j/data/
     tty: true
     labels:
       io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity:container: neo4j-neo3-1
   neo2:
+    privileged: true
     image: ekino/neo4j-cluster:latest
     hostname: neo2
     environment:
-      SERVER_ID: '2'
       CLUSTER_NODES: neo1,neo2,neo3,neo4
+      SERVER_ID: '2'
     stdin_open: true
+    volumes:
+    - /var/lib/neo4j-2/data/:/var/lib/neo4j/data/
     tty: true
     labels:
       io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity:container: neo4j-neo2-1
   neo1:
+    privileged: true
     image: ekino/neo4j-cluster:latest
     hostname: neo1
     environment:
-      SERVER_ID: '1'
       CLUSTER_NODES: neo1,neo2,neo3,neo4
+      SERVER_ID: '1'
     stdin_open: true
+    volumes:
+    - /var/lib/neo4j-1/data/:/var/lib/neo4j/data/
     tty: true
     labels:
       io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity:container: neo4j-neo1-1
   neo4j-lb:
     image: rancher/lb-service-haproxy:v0.7.5
     ports:
@@ -42,12 +54,16 @@ services:
       io.rancher.container.agent.role: environmentAdmin
       io.rancher.container.create_agent: 'true'
   neo4:
+    privileged: true
     image: ekino/neo4j-cluster:latest
     hostname: neo4
     environment:
-      SERVER_ID: '4'
       CLUSTER_NODES: neo1,neo2,neo3,neo4
+      SERVER_ID: '4'
     stdin_open: true
+    volumes:
+    - /var/lib/neo4j-4/data/:/var/lib/neo4j/data/
     tty: true
     labels:
       io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity:container: neo4j-neo4-1
